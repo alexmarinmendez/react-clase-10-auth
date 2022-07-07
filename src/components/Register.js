@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 const Register = () => {
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
+  const { signup } = useAuth();
 
   const handleChange = ({ target: { name, value } }) => {
     // console.log(name, value);
@@ -13,7 +15,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+    signup(user.email, user.password);
   };
 
   return (

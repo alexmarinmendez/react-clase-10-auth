@@ -1,4 +1,7 @@
 import { createContext, useContext } from 'react';
+import { auth } from '../firebaseConfig';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
@@ -8,10 +11,15 @@ export const useAuth = () => {
 };
 
 const AuthContextProvider = ({ children }) => {
-  const user = {
-    login: true,
+  const navigate = useNavigate();
+
+  const signup = (email, password) => {
+    // console.log(email, password);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => navigate('/'))
+      .catch((error) => console.log(error));
   };
-  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ signup }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContextProvider;

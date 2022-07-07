@@ -6,8 +6,8 @@ import AuthContextProvider from './contexts/AuthContext';
 
 const App = () => {
   return (
-    <AuthContextProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthContextProvider>
         <div className="bg-slate-300 h-screen text-black flex">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -15,8 +15,8 @@ const App = () => {
             <Route path="/register" element={<Register />} />
           </Routes>
         </div>
-      </BrowserRouter>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </BrowserRouter>
   );
 };
 
