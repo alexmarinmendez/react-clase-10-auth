@@ -1,6 +1,6 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import { auth } from '../firebaseConfig';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
@@ -44,6 +44,11 @@ const AuthContextProvider = ({ children }) => {
       .catch((error) => setError({ ...error, loginError: error.message }));
   };
 
+  const logout = () => {
+    signOut(auth);
+    navigate('/login');
+  };
+
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       // console.log(currentUser);
@@ -51,7 +56,7 @@ const AuthContextProvider = ({ children }) => {
     });
   }, []);
 
-  return <AuthContext.Provider value={{ user, error, signup, login }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, error, signup, login, logout }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContextProvider;
