@@ -20,7 +20,7 @@ const Login = () => {
 
   return (
     <div>
-      {error && <p>{error}</p>}
+      {error.loginError && <p>{error.loginError}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input type="text" name="email" placeholder="youremail@company.com" onChange={handleChange} />

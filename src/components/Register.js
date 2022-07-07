@@ -20,7 +20,7 @@ const Register = () => {
 
   return (
     <div>
-      {error && <p>{error}</p>}
+      {error.signupError && <p>{error.signupError}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input type="text" name="email" placeholder="youremail@company.com" onChange={handleChange} />
