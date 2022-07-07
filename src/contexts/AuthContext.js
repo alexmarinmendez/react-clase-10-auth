@@ -1,6 +1,6 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, createContext, useContext, useEffect } from 'react';
 import { auth } from '../firebaseConfig';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
@@ -11,6 +11,7 @@ export const useAuth = () => {
 };
 
 const AuthContextProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const [error, setError] = useState({
     signupError: '',
     loginError: '',
@@ -34,11 +35,23 @@ const AuthContextProvider = ({ children }) => {
   const login = (email, password) => {
     setError({ ...error, loginError: '' });
     signInWithEmailAndPassword(auth, email, password)
+      // .then((userCredential) => {
+      //   const user = userCredential.user;
+      //   console.log(user);
+      //   navigate('/');
+      // })
       .then(() => navigate('/'))
       .catch((error) => setError({ ...error, loginError: error.message }));
   };
 
-  return <AuthContext.Provider value={{ error, signup, login }}>{children}</AuthContext.Provider>;
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      // console.log(currentUser);
+      setUser(currentUser);
+    });
+  }, []);
+
+  return <AuthContext.Provider value={{ user, error, signup, login }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContextProvider;

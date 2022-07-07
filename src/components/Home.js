@@ -1,5 +1,8 @@
+import { useAuth } from '../contexts/AuthContext';
+
 const Home = () => {
-  return <div>Home</div>;
+  const { user } = useAuth();
+  return <div>Welcome {user && user.email}</div>;
 };
 
 export default Home;
