@@ -6,7 +6,7 @@ const Register = () => {
     email: '',
     password: '',
   });
-  const { signup } = useAuth();
+  const { error, signup } = useAuth();
 
   const handleChange = ({ target: { name, value } }) => {
     // console.log(name, value);
@@ -20,6 +20,7 @@ const Register = () => {
 
   return (
     <div>
+      {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input type="text" name="email" placeholder="youremail@company.com" onChange={handleChange} />
