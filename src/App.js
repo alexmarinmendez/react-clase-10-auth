@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -10,7 +11,14 @@ const App = () => {
       <AuthContextProvider>
         <div className="bg-slate-300 h-screen text-black flex">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
