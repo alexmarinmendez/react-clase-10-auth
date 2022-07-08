@@ -6,7 +6,7 @@ const Login = () => {
     email: '',
     password: '',
   });
-  const { error, login } = useAuth();
+  const { error, login, googleLogin } = useAuth();
 
   const handleChange = ({ target: { name, value } }) => {
     // console.log(name, value);
@@ -28,6 +28,7 @@ const Login = () => {
         <input type="password" name="password" placeholder="**************" onChange={handleChange} />
         <button>Login</button>
       </form>
+      <button onClick={googleLogin}>Login with Google</button>
     </div>
   );
 };
